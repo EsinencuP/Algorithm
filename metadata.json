@@ -1,0 +1,6 @@
+{
+  "name": "ALGORITHM",
+  "description": "High-End Informatics & Computer Science Course Landing Page with interactive curriculum selector, custom adaptive timeline calculator, and 3D algorithmic visualizer.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
