@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Users2, CalendarDays, Award, ChevronRight } from "lucide-react";
 import { useLanguage } from "../LanguageContext";
 
@@ -14,32 +14,35 @@ interface FeatureCardProps {
   badge: string;
   description: string;
   bullets: string[];
-  key?: string | number;
+  key?: string;
 }
 
 function FeatureCard({ icon, title, badge, description, bullets }: FeatureCardProps) {
-  // Use state to implement the 3D mouse tilt interaction
   const [coords, setCoords] = useState({ rX: 0, rY: 0, sX: 0, sY: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isTouchDevice) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // Standardize coordinates relative to center
-    const xPct = (x - width / 2) / (width / 2); // Ranges from -1 to 1
-    const yPct = (y - height / 2) / (height / 2); // Ranges from -1 to 1
+    const xPct = (x - width / 2) / (width / 2);
+    const yPct = (y - height / 2) / (height / 2);
 
-    // Apply tilt angles
-    const maxTilt = 12; // Maximum tilt degrees
+    const maxTilt = 8; // Restrain to a premium, subtle 8 degrees
     setCoords({
       rX: -yPct * maxTilt,
       rY: xPct * maxTilt,
-      sX: x, // Direct mouse X offset
-      sY: y  // Direct mouse Y offset
+      sX: x,
+      sY: y
     });
   };
 
@@ -48,29 +51,31 @@ function FeatureCard({ icon, title, badge, description, bullets }: FeatureCardPr
     setCoords({ rX: 0, rY: 0, sX: 0, sY: 0 });
   };
 
+  const shouldApplyTilt = isHovered && !isTouchDevice;
+
   return (
     <div
       className="perspective-1000 w-full"
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => !isTouchDevice && setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className="relative transition-all duration-300 rounded-3xl p-6 md:p-8 border glassmorphism cursor-pointer overflow-hidden h-full flex flex-col justify-between"
+        className="relative transition-all duration-300 rounded-3xl p-5 md:p-8 border glassmorphism cursor-pointer overflow-hidden h-full flex flex-col justify-between"
         style={{
-          transform: isHovered
-            ? `rotateX(${coords.rX}deg) rotateY(${coords.rY}deg) scale(1.025)`
+          transform: shouldApplyTilt
+            ? `rotateX(${coords.rX}deg) rotateY(${coords.rY}deg) scale(1.02)`
             : `rotateX(0deg) rotateY(0deg) scale(1)`,
-          boxShadow: isHovered
+          boxShadow: shouldApplyTilt
             ? "0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.15)"
             : "0 4px 20px rgba(0, 0, 0, 0.4)",
-          borderColor: isHovered
+          borderColor: shouldApplyTilt
             ? "rgba(16, 185, 129, 0.35)"
             : "rgba(255, 255, 255, 0.04)"
         }}
       >
         {/* Apple-style Cursor Light Shine Overlay */}
-        {isHovered && (
+        {shouldApplyTilt && (
           <div
             className="absolute inset-0 pointer-events-none opacity-40 mix-blend-screen"
             style={{
@@ -82,7 +87,7 @@ function FeatureCard({ icon, title, badge, description, bullets }: FeatureCardPr
         {/* Content Block */}
         <div>
           {/* Header block with icon and tag badge */}
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center justify-between mb-6 md:mb-8">
             <div className="p-3 bg-zinc-900 border border-white/5 rounded-2xl text-emerald-400">
               {icon}
             </div>
@@ -95,7 +100,7 @@ function FeatureCard({ icon, title, badge, description, bullets }: FeatureCardPr
             {title}
           </h3>
 
-          <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-6 min-h-[120px] sm:min-h-[100px] md:min-h-[140px] lg:min-h-[110px]">
+          <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-6 md:min-h-[96px] lg:min-h-[110px]">
             {description}
           </p>
         </div>
@@ -133,19 +138,19 @@ export default function FeatureGrid() {
   const cards = t.featureGrid.cards;
 
   return (
-    <section id="features-grid-section" className="relative max-w-7xl mx-auto px-6 md:px-16 py-24 z-10 scroll-mt-24">
+    <section id="features-grid-section" className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-16 py-12 md:py-24 z-10 scroll-mt-24">
       {/* Title block */}
-      <div className="mb-14 text-center md:text-left animate-fade-in">
+      <div className="mb-10 md:mb-14 text-center md:text-left animate-fade-in">
         <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4 font-sans">
           {t.featureGrid.title}
         </h2>
-        <p className="text-gray-400 max-w-xl text-base">
+        <p className="text-gray-400 max-w-xl text-sm sm:text-base">
           {t.featureGrid.description}
         </p>
       </div>
 
       {/* Grid wrapper */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-stretch">
         {cards.map((card) => (
           <FeatureCard
             key={card.id}

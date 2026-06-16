@@ -56,9 +56,9 @@ export default function Syllabus({ weeklyHours, startDate }: SyllabusProps) {
   };
 
   return (
-    <section id="syllabus-timeline-section" className="relative max-w-5xl mx-auto px-6 md:px-16 py-20 z-10 scroll-mt-24">
+    <section id="syllabus-timeline-section" className="relative max-w-5xl mx-auto px-4 sm:px-6 md:px-16 py-12 md:py-20 z-10 scroll-mt-24">
       {/* Title block */}
-      <div className="flex flex-col items-center justify-center text-center mb-16 animate-fade-in">
+      <div className="flex flex-col items-center justify-center text-center mb-10 md:mb-16 animate-fade-in">
         <div className="inline-flex items-center space-x-2 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs px-3 py-1 rounded-full font-mono mb-4">
           <Layers size={12} className="animate-pulse" />
           <span>{t.syllabus.adaptiveLearningFlow}</span>
@@ -66,7 +66,7 @@ export default function Syllabus({ weeklyHours, startDate }: SyllabusProps) {
         <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4 font-sans">
           {t.syllabus.title}
         </h2>
-        <p className="text-gray-400 max-w-xl text-xs sm:text-base">
+        <p className="text-gray-400 max-w-xl text-sm sm:text-base">
           {t.syllabus.description}
         </p>
       </div>
@@ -76,7 +76,7 @@ export default function Syllabus({ weeklyHours, startDate }: SyllabusProps) {
         {/* Glowing timeline bar */}
         <div className="absolute left-[7px] md:left-[19px] top-4 bottom-4 w-[2px] bg-gradient-to-b from-emerald-500 via-green-600/30 to-zinc-900 shadow-[0_0_10px_rgba(34,197,94,0.3)]"></div>
 
-        <div className="space-y-8">
+        <div className="space-y-6 md:space-y-8">
           {syllabusModules.map((module, idx) => {
             const isExpanded = expandedId === module.id;
             const dates = projectedDates[module.id];
@@ -99,7 +99,7 @@ export default function Syllabus({ weeklyHours, startDate }: SyllabusProps) {
 
                 {/* Main Card */}
                 <div
-                  className={`transition-all duration-300 rounded-2xl p-5 md:p-6 border ${
+                  className={`transition-all duration-300 rounded-2xl p-4 sm:p-5 md:p-6 border ${
                     isExpanded
                       ? "glassmorphic-glow border-emerald-500/20 shadow-[0_0_30px_rgba(0,0,0,0.4)]"
                       : "glassmorphism border-white/5 hover:border-white/10"

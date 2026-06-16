@@ -80,24 +80,24 @@ export default function LevelSelector({
   const currentComplexity = activeLevel === "beginner" ? t.levelSelector.complexityB : activeLevel === "middle" ? t.levelSelector.complexityM : t.levelSelector.complexityS;
 
   return (
-    <section id="level-selection-section" className="relative max-w-7xl mx-auto px-6 md:px-16 py-24 z-10">
+    <section id="level-selection-section" className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-16 py-12 md:py-24 z-10">
       {/* Label and descriptive tag */}
-      <div className="mb-14 text-center md:text-left animate-fade-in">
+      <div className="mb-10 md:mb-14 text-center md:text-left animate-fade-in">
         <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
           {t.levelSelector.title}
         </h2>
-        <p className="text-gray-400 max-w-xl text-base min-h-[48px] sm:min-h-[36px]">
+        <p className="text-gray-400 max-w-xl text-sm sm:text-base">
           {t.levelSelector.tagline}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         {/* Left Side Info Hub (7 columns width) */}
-        <div className="lg:col-span-7 flex flex-col space-y-8">
+        <div className="lg:col-span-7 flex flex-col space-y-6 md:space-y-8">
           {/* Customized horizontal slider container */}
-          <div className="relative glassmorphism rounded-xl p-2 flex items-center justify-between border border-white/5 w-full">
+          <div className="relative bg-zinc-950/60 backdrop-blur-md rounded-xl p-1.5 flex items-center justify-between border border-white/5 w-full">
             {/* Sliding highlight indicator bubble using Framer motion Layout */}
-            <div className="absolute inset-0 p-2 z-0 pointer-events-none">
+            <div className="absolute inset-0 p-1.5 z-0 pointer-events-none">
               <div className="grid grid-cols-3 h-full w-full">
                 <div className="col-span-1 relative h-full w-full">
                   {activeLevel === "beginner" && (
@@ -133,7 +133,7 @@ export default function LevelSelector({
             <button
               id="slider-beg"
               onClick={() => onLevelChange("beginner")}
-              className={`flex-1 text-center py-3.5 px-2 relative z-10 font-mono text-[11px] sm:text-xs tracking-wider uppercase font-semibold transition-colors duration-300 pointer-events-auto cursor-pointer whitespace-nowrap ${
+              className={`flex-1 text-center py-3.5 px-1 relative z-10 font-mono text-[10px] sm:text-xs tracking-wider uppercase font-semibold transition-colors duration-300 pointer-events-auto cursor-pointer min-h-[44px] flex items-center justify-center whitespace-normal break-all leading-tight ${
                 activeLevel === "beginner" ? "text-emerald-400" : "text-gray-400 hover:text-white"
               }`}
             >
@@ -142,7 +142,7 @@ export default function LevelSelector({
             <button
               id="slider-mid"
               onClick={() => onLevelChange("middle")}
-              className={`flex-1 text-center py-3.5 px-2 relative z-10 font-mono text-[11px] sm:text-xs tracking-wider uppercase font-semibold transition-colors duration-300 pointer-events-auto cursor-pointer whitespace-nowrap ${
+              className={`flex-1 text-center py-3.5 px-1 relative z-10 font-mono text-[10px] sm:text-xs tracking-wider uppercase font-semibold transition-colors duration-300 pointer-events-auto cursor-pointer min-h-[44px] flex items-center justify-center whitespace-normal break-all leading-tight ${
                 activeLevel === "middle" ? "text-emerald-400" : "text-gray-400 hover:text-white"
               }`}
             >
@@ -151,7 +151,7 @@ export default function LevelSelector({
             <button
               id="slider-sen"
               onClick={() => onLevelChange("senior")}
-              className={`flex-1 text-center py-3.5 px-2 relative z-10 font-mono text-[11px] sm:text-xs tracking-wider uppercase font-semibold transition-colors duration-300 pointer-events-auto cursor-pointer whitespace-nowrap ${
+              className={`flex-1 text-center py-3.5 px-1 relative z-10 font-mono text-[10px] sm:text-xs tracking-wider uppercase font-semibold transition-colors duration-300 pointer-events-auto cursor-pointer min-h-[44px] flex items-center justify-center whitespace-normal break-all leading-tight ${
                 activeLevel === "senior" ? "text-cyan-400" : "text-gray-400 hover:text-white"
               }`}
             >
@@ -161,7 +161,7 @@ export default function LevelSelector({
 
           {/* Sliding native Range slider widget underneath to make tactile sliding actions possible */}
           <div className="flex items-center space-x-4 pl-1">
-            <span className="text-[10px] text-gray-500 font-mono">{t.levelSelector.dragMesh}</span>
+            <span className="text-[10px] text-gray-500 font-mono hidden xs:inline">{t.levelSelector.dragMesh}</span>
             <input
               id="fluid-level-drag"
               type="range"
@@ -175,15 +175,15 @@ export default function LevelSelector({
                 if (val === "1") onLevelChange("middle");
                 if (val === "2") onLevelChange("senior");
               }}
-              className="flex-1 accent-emerald-500 bg-white/5 rounded-lg h-1.5 cursor-ew-resize opacity-60 hover:opacity-100 transition-opacity"
+              className="flex-1 accent-emerald-500 bg-white/5 rounded-lg h-2 cursor-ew-resize opacity-85 hover:opacity-100 transition-opacity min-h-[44px]"
             />
-            <span className="text-[10px] font-mono text-emerald-400">
+            <span className="text-[10px] font-mono text-emerald-400 border border-emerald-500/2 transition-colors px-2 py-0.5 rounded bg-emerald-500/5">
               {activeLevel.toUpperCase()}
             </span>
           </div>
 
           {/* Dynamic Content Details Card with AnimatePresence Slider transition */}
-          <div className="glassmorphic-glow rounded-2xl p-6 md:p-8 border border-white/5 min-h-[300px]">
+          <div className="glassmorphic-glow rounded-2xl p-4 sm:p-6 md:p-8 border border-white/5">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeLevel}
@@ -193,33 +193,33 @@ export default function LevelSelector({
                 transition={{ duration: 0.45 }}
               >
                 {/* Meta details */}
-                <div className="text-[10px] font-mono mb-2 tracking-widest text-emerald-400 font-semibold uppercase min-h-[16px]">
+                <div className="text-[10px] font-mono mb-2 tracking-widest text-emerald-400 font-semibold uppercase">
                   {currentInfo.subTitle}
                 </div>
 
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 min-h-[36px]">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4">
                   {currentInfo.title} {t.levelSelector.syllabusFocus}
                 </h3>
 
-                <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-6 min-h-[120px] sm:min-h-[96px] md:min-h-[80px]">
+                <p className="text-gray-400 text-xs sm:text-sm md:text-base leading-relaxed mb-6">
                   {currentInfo.description}
                 </p>
 
                 {/* Grid details (Salary target / Duration indicator) */}
-                <div className="grid grid-cols-2 gap-4 md:gap-6 border-t border-white/5 pt-6 mb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-white/5 pt-6 mb-6">
                   <div className="flex items-start space-x-3">
                     <TrendingUp className={`w-5 h-5 mt-0.5 ${currentInfo.highlightColor} shrink-0`} />
-                    <div className="min-h-[44px]">
-                      <span className="text-xs text-gray-500 block font-mono whitespace-nowrap">{t.levelSelector.salaryVector}</span>
-                      <span className="text-white font-semibold text-sm sm:text-base whitespace-nowrap">{currentInfo.salaryLevel}</span>
+                    <div>
+                      <span className="text-[10px] sm:text-xs text-gray-500 block font-mono uppercase">{t.levelSelector.salaryVector}</span>
+                      <span className="text-white font-semibold text-xs sm:text-sm md:text-base block">{currentInfo.salaryLevel}</span>
                     </div>
                   </div>
 
                   <div className="flex items-start space-x-3">
                     <Hourglass className={`w-5 h-5 mt-0.5 ${currentInfo.highlightColor} shrink-0`} />
-                    <div className="min-h-[44px]">
-                      <span className="text-xs text-gray-500 block font-mono whitespace-nowrap">{t.levelSelector.courseDepth}</span>
-                      <span className="text-white font-semibold text-sm sm:text-base whitespace-nowrap">{currentInfo.termDuration}</span>
+                    <div>
+                      <span className="text-[10px] sm:text-xs text-gray-500 block font-mono uppercase">{t.levelSelector.courseDepth}</span>
+                      <span className="text-white font-semibold text-xs sm:text-sm md:text-base block">{currentInfo.termDuration}</span>
                     </div>
                   </div>
                 </div>
@@ -229,13 +229,13 @@ export default function LevelSelector({
                   <h4 className="text-xs font-mono text-gray-500 tracking-wider mb-3 uppercase">
                     {t.levelSelector.coreTechHeading}
                   </h4>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
                     {currentInfo.techStack.map((tech, idx) => (
                       <div
                         key={idx}
-                        className="bg-black/40 border border-white/5 rounded-lg p-3 hover:border-emerald-500/25 transition-all"
+                        className="bg-black/40 border border-white/5 rounded-lg p-2.5 hover:border-emerald-500/25 transition-all"
                       >
-                        <span className={`text-[11px] font-mono font-bold block mb-0.5 ${currentInfo.highlightColor}`}>
+                        <span className={`text-[10px] sm:text-[11px] font-mono font-bold block mb-0.5 ${currentInfo.highlightColor} truncate`}>
                           {tech.name}
                         </span>
                         <span className="text-[9px] text-gray-500 leading-tight block">
@@ -251,26 +251,26 @@ export default function LevelSelector({
         </div>
 
         {/* Right Side Visual Module (5 columns width) */}
-        <div className="lg:col-span-5 flex flex-col space-y-8">
+        <div className="lg:col-span-5 flex flex-col space-y-6 md:space-y-8">
           {/* Dynamic reactive SVG representation */}
-          <div className="glassmorphism rounded-2xl p-6 md:p-8 aspect-square relative flex items-center justify-center border border-white/5 overflow-hidden">
+          <div className="glassmorphism rounded-2xl p-4 sm:p-6 md:p-8 aspect-square relative flex items-center justify-center border border-white/5 overflow-hidden">
             {/* Absolute indicator */}
             <div className="absolute top-4 left-4 font-mono text-[9px] text-gray-500">
               [STRUCTURAL_ALGORITHM_VISUALIZATION]
             </div>
 
-            <div className="w-56 h-56 relative">
+            <div className="w-40 h-40 sm:w-52 sm:h-52 md:w-56 md:h-56 relative">
               {renderSVGGraph(activeLevel)}
             </div>
 
-            <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center text-[10px] font-mono text-gray-500">
+            <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center text-[9px] sm:text-[10px] font-mono text-gray-500">
               <span>{t.levelSelector.latencyLabel}: 0.12ms</span>
               <span>{t.levelSelector.complexityLabel}: {currentComplexity}</span>
             </div>
           </div>
 
           {/* Project Box Showcase */}
-          <div className="bg-gradient-to-r from-zinc-950 to-emerald-950/10 border border-white/5 rounded-2xl p-6 min-h-[230px] sm:min-h-[190px] md:min-h-[175px] flex flex-col justify-center">
+          <div className="bg-gradient-to-r from-zinc-950 to-emerald-950/10 border border-white/5 rounded-2xl p-5 sm:p-6 flex flex-col justify-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeLevel}

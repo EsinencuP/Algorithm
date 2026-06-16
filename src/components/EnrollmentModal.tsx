@@ -65,7 +65,7 @@ export default function EnrollmentModal({
         animate={{ scale: 1, y: 0, opacity: 1 }}
         exit={{ scale: 0.95, y: 15, opacity: 0 }}
         transition={{ duration: 0.35, ease: "easeOut" }}
-        className="bg-zinc-950 border border-emerald-500/30 rounded-2xl max-w-md w-full p-6 md:p-8 relative overflow-hidden shadow-[0_0_40px_rgba(34,197,94,0.25)] z-10 font-mono text-[11px]"
+        className="bg-zinc-950 border border-emerald-500/30 rounded-2xl max-w-md w-full p-5 sm:p-6 md:p-8 relative overflow-hidden shadow-[0_0_40px_rgba(34,197,94,0.25)] z-10 font-mono text-[11px] max-h-[85vh] overflow-y-auto"
       >
         <button
           onClick={handleClose}

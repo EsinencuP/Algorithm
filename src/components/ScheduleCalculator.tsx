@@ -72,7 +72,7 @@ export default function ScheduleCalculator({
   const intensity = getIntensityInfo(weeklyHours);
 
   return (
-    <div className="relative glassmorphic-glow rounded-3xl p-6 md:p-8 border border-white/5 animate-fade-in">
+    <div className="relative glassmorphic-glow rounded-3xl p-4 sm:p-6 md:p-8 border border-white/5 animate-fade-in">
       <div className="absolute top-4 right-4 text-[10px] font-mono text-emerald-400 flex items-center space-x-1.5">
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping"></span>
         <span>{t.scheduleCalculator.liveIndicator}</span>
@@ -107,7 +107,7 @@ export default function ScheduleCalculator({
               max="24"
               value={weeklyHours}
               onChange={(e) => onHoursChange(parseInt(e.target.value))}
-              className="w-full accent-emerald-500 h-1.5 bg-white/5 rounded-lg cursor-ew-resize"
+              className="w-full accent-emerald-500 h-2 bg-white/5 rounded-lg cursor-ew-resize min-h-[44px]"
             />
             <div className="flex justify-between text-[10px] text-gray-500 font-mono">
               <span>{t.scheduleCalculator.minLabel}</span>
@@ -126,15 +126,15 @@ export default function ScheduleCalculator({
                 type="date"
                 value={startDate}
                 onChange={(e) => onStartDateChange(e.target.value)}
-                className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-2.5 text-xs text-white font-mono focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500/30"
+                className="w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 text-xs text-white font-mono focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500/30 min-h-[44px]"
               />
             </div>
           </div>
         </div>
 
         {/* Right Dynamic outputs summary */}
-        <div className="bg-black/30 border border-white/5 p-5 rounded-2xl flex flex-col justify-between h-full space-y-4">
-          <div className="min-h-[110px] sm:min-h-[85px]">
+        <div className="bg-black/30 border border-white/5 p-4 sm:p-5 rounded-2xl flex flex-col justify-between h-full space-y-4">
+          <div>
             <span className="text-[10px] font-mono text-gray-500 block uppercase">
               {t.scheduleCalculator.studyIntensityProfile}
             </span>
@@ -149,20 +149,20 @@ export default function ScheduleCalculator({
             </p>
           </div>
 
-          <div className="border-t border-white/5 pt-4 grid grid-cols-2 gap-4 text-xs font-mono">
-            <div className="min-h-[55px]">
+          <div className="border-t border-white/5 pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
+            <div>
               <span className="text-gray-500 block text-[9px] uppercase whitespace-nowrap overflow-hidden text-ellipsis">{t.scheduleCalculator.totalDuration}</span>
-              <span className="text-white text-sm font-bold block mt-1 whitespace-nowrap">
+              <span className="text-white text-sm font-bold block mt-1">
                 {totalWeeks} {language === "ro" ? "Săptămâni" : "Недель"}
               </span>
-              <span className="text-[10px] text-gray-600 block whitespace-nowrap">({totalCourseHours} {t.scheduleCalculator.totalHours})</span>
+              <span className="text-[10px] text-gray-600 block">({totalCourseHours} {t.scheduleCalculator.totalHours})</span>
             </div>
-            <div className="min-h-[55px]">
+            <div>
               <span className="text-gray-500 block text-[9px] uppercase whitespace-nowrap overflow-hidden text-ellipsis">{t.scheduleCalculator.gradVector}</span>
-              <span className="text-emerald-400 text-sm font-bold block mt-1 whitespace-nowrap">
+              <span className="text-emerald-400 text-sm font-bold block mt-1 leading-snug break-words">
                 {getGraduationDate()}
               </span>
-              <span className="text-[10px] text-gray-600 block whitespace-nowrap">{t.scheduleCalculator.paceLabel}</span>
+              <span className="text-[10px] text-gray-600 block">{t.scheduleCalculator.paceLabel}</span>
             </div>
           </div>
         </div>
